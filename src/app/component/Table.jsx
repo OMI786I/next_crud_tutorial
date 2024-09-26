@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 const getProducts = async () => {
   try {
@@ -63,7 +64,11 @@ const Table = async () => {
                 </td>
                 <td>Purple</td>
                 <th>
-                  <button className="btn btn-primary btn-xs">Edit</button>
+                  <Link href={`/edit/${res._id}`}>
+                    {" "}
+                    <button className="btn btn-primary btn-xs">Edit</button>
+                  </Link>
+
                   <button className="btn btn-error btn-xs">Delete</button>
                 </th>
               </tr>
