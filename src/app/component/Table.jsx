@@ -1,6 +1,20 @@
 import React from "react";
+const getProducts = async () => {
+  try {
+    const res = await fetch("http://localhost:3000/api/products", {
+      cache: "no-store",
+    });
+    if (!res.ok) {
+      throw new Error("Failed to fetch products");
+    }
+    return res.json();
+  } catch (error) {
+    console.log("error loading products", error);
+  }
+};
+const Table = async () => {
+  const { products } = await getProducts();
 
-const Table = () => {
   return (
     <div>
       <div className="overflow-x-auto">
@@ -14,48 +28,46 @@ const Table = () => {
                 </label>
               </th>
               <th>Name</th>
-              <th>Job</th>
-              <th>Favorite Color</th>
+              <th>category</th>
+              <th>image</th>
+              <th>price</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             {/* row 1 */}
-            <tr>
-              <th>
-                <label>
-                  <input type="checkbox" className="checkbox" />
-                </label>
-              </th>
-              <td>
-                <div className="flex items-center gap-3">
-                  <div className="avatar">
-                    <div className="mask mask-squircle h-12 w-12">
-                      <img
-                        src="https://img.daisyui.com/images/profile/demo/2@94.webp"
-                        alt="Avatar Tailwind CSS Component"
-                      />
+
+            {products.map((res, index) => (
+              <tr>
+                <th>{index + 1}</th>
+                <td>
+                  <div className="flex items-center gap-3">
+                    <div className="avatar">
+                      <div className="mask mask-squircle h-12 w-12">
+                        <img
+                          src={res.image}
+                          alt="Avatar Tailwind CSS Component"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="font-bold">{res.name}</div>
                     </div>
                   </div>
-                  <div>
-                    <div className="font-bold">Hart Hagerty</div>
-                    <div className="text-sm opacity-50">United States</div>
-                  </div>
-                </div>
-              </td>
-              <td>
-                Zemlak, Daniel and Leannon
-                <br />
-                <span className="badge badge-ghost badge-sm">
-                  Desktop Support Technician
-                </span>
-              </td>
-              <td>Purple</td>
-              <th>
-                <button className="btn btn-primary btn-xs">Edit</button>
-                <button className="btn btn-error btn-xs">Delete</button>
-              </th>
-            </tr>
+                </td>
+                <td>
+                  <br />
+                  <span className="badge badge-ghost badge-sm">
+                    {res.category}
+                  </span>
+                </td>
+                <td>Purple</td>
+                <th>
+                  <button className="btn btn-primary btn-xs">Edit</button>
+                  <button className="btn btn-error btn-xs">Delete</button>
+                </th>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

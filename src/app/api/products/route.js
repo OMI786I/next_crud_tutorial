@@ -16,3 +16,9 @@ export async function POST(request) {
     { status: 201 }
   );
 }
+
+export async function GET() {
+  await connectMongoDB();
+  const products = await ProductModel.find();
+  return NextResponse.json({ products });
+}
