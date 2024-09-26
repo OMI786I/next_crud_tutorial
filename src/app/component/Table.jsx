@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import RemoveBtn from "./RemoveBtn";
 const getProducts = async () => {
   try {
     const res = await fetch("http://localhost:3000/api/products", {
@@ -68,8 +69,7 @@ const Table = async () => {
                     {" "}
                     <button className="btn btn-primary btn-xs">Edit</button>
                   </Link>
-
-                  <button className="btn btn-error btn-xs">Delete</button>
+                  <RemoveBtn id={res._id} />
                 </th>
               </tr>
             ))}

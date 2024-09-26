@@ -16,3 +16,10 @@ export async function PUT(request, { params }) {
   await ProductModel.findByIdAndUpdate(id, { name, image, price, category });
   return NextResponse.json({ message: "Product updated" }, { status: 200 });
 }
+
+export async function DELETE(request, { params }) {
+  const { id } = params;
+  await connectMongoDB();
+  await ProductModel.findByIdAndDelete(id);
+  return NextResponse.json({ message: "Product deleted" });
+}

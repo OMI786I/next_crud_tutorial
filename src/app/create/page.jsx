@@ -24,6 +24,7 @@ const page = () => {
         body: JSON.stringify(data),
       });
       if (res.ok) {
+        router.refresh();
         router.push("/");
       } else {
         throw new Error("Failed to create a new product");
